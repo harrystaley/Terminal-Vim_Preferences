@@ -7,9 +7,16 @@ vim .bash_profile
 Append the following code to the bottom of the  bash profile.
 
 ```bash
+#CURRENT GIT BRANCH IN PROMPT
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+#CUSTOM BASH ESTTINGS
+export PS1="\u@\h:\W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] \n$ "
 export CLICOLOR=1
-export LSCOLORS=GxBxCxDxexegedabagaced
- 
-export PS1="\e[0;35m-&gt;&gt; \e[1;34m\W\e[0;32m\$\e[0;37m $ "
+export LSCOLORS=ExFxBxDxCxegedabagacad
+alias ls='ls -Gh'
+
 ```
 
